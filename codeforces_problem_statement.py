@@ -28,7 +28,9 @@ def get_problem_statement(contest_id, problem_index):
     else:
         return f"Error: Unable to fetch problem (HTTP {response.status_code})."
 
+'''
 contest_id = 4
 problem_index = 'A'
 problem_statement = get_problem_statement(contest_id, problem_index)
 print(problem_statement)
+'''
