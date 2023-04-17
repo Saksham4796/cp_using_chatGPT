@@ -1,16 +1,29 @@
-#include <iostream>
-
+#include<iostream>
+#include<algorithm>
+#include<string>
+using namespace std;
 int main()
 {
-    int w;
-    std::cin >> w;
-    if (w % 2 == 0 && w != 2)
+    string s;
+    cin>>s;
+    int n = s.length();
+    int a[n];
+    int k = 0;
+    for(int i=0;i<n;i++)
     {
-        std::cout << "YES";
+        if(s[i]!='+')
+        {
+            a[k] = s[i]-'0';
+            k++;
+        }
     }
-    else
+    sort(a,a+k);
+    for(int i=0;i<k;i++)
     {
-        std::cout << "NO";
+        if(i==k-1)
+            cout<<a[i];
+        else
+            cout<<a[i]<<"+";
     }
     return 0;
 }
