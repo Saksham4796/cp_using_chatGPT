@@ -32,7 +32,7 @@ def extract_code(response, output_file="output.cpp"):
 		    text = choice.text.strip()
 		    fl.write(text)
 		    
-contest_id = 281
+contest_id = 339
 problem_index = 'A'
 problem_statement = get_problem_statement(contest_id, problem_index)
 generated_code = generate_code("Write the complete C++ code for the following problem statement in a way a professional programmer writes it.\n\n"+problem_statement+"\nMake sure of writing the code and nothing else as the entire output contained will be directly submitted to Codeforeces and having text in the output would lead to compilaton error. Also, write the code just one time.")
