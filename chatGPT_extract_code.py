@@ -4,7 +4,7 @@ import os
 from codeforces_problem_statement import get_problem_statement
 
 # Replace 'your_api_key' with your actual API key
-os.environ["OPENAI_API_KEY"] = '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'
+os.environ["OPENAI_API_KEY"] = 'enter the key here'
 
 # Set up the OpenAI API credentials
 openai.api_key = os.environ["OPENAI_API_KEY"]
@@ -16,7 +16,7 @@ def generate_code(prompt):
 	response = openai.Completion.create(
 		engine="text-davinci-002",
 		prompt=prompt,
-		max_tokens=100,
+		max_tokens=1024,
 		n=1,
 		stop=None,
 		temperature=0.5,
@@ -26,12 +26,13 @@ def generate_code(prompt):
 	
 # Extract the "Code" portion of the response and write to 'output.py' file
 def extract_code(response, output_file="output.cpp"):
+	print(response)
 	with open("output.cpp",'w') as fl:
 		for choice in response.choices:
 		    text = choice.text.strip()
 		    fl.write(text)
 		    
-contest_id = 4
+contest_id = 281
 problem_index = 'A'
 problem_statement = get_problem_statement(contest_id, problem_index)
 generated_code = generate_code("Write the complete C++ code for the following problem statement in a way a professional programmer writes it.\n\n"+problem_statement+"\nMake sure of writing the code and nothing else as the entire output contained will be directly submitted to Codeforeces and having text in the output would lead to compilaton error. Also, write the code just one time.")
