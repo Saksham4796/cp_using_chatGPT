@@ -30,8 +30,8 @@ def extract_code(response, output_file="output.cpp"):
 	with open("output.cpp",'w') as fl:
 		for choice in response.choices:
 		    text = choice.text.strip()
-		    print("***")
 		    fl.write(text)
+	return text
 		    
 contest_id = 313
 problem_index = 'A'
@@ -39,4 +39,28 @@ problem_statement, test_cases = get_problem_statement(contest_id, problem_index)
 prompt = "Write the complete C++ code for the following problem statement in a way a professional programmer writes it.\n\n"+"Problem Statement:\n"+problem_statement+"\nSample Test Cases:\n"+test_cases+"\nMake sure of writing the code and nothing else as the entire output contained will be directly submitted to Codeforeces and having text in the output would lead to compilaton error. Also, write the code just one time."
 generated_code = generate_code(prompt)
 #print(prompt)
-extract_code(generated_code,'output.cpp')
+code_text = extract_code(generated_code,'output.cpp')
+
+from test_case_execution import parse_test_cases, check_test_cases
+
+test_cases = parse_test_cases('testCases_313A.txt')
+passed_cases, failed_cases = check_test_cases(test_cases)
+
+while len(failed_cases) != 0:
+	#print(failed_cases)
+	failed_content = ''
+	for key in failed_cases.keys():
+		failed_content += 'Input: '+test_cases[key][0]+'\n'
+		failed_content += 'Expected Output: '+failed_cases[key][1]+'\n'
+		failed_content += 'Actual Output: '+failed_cases[key][0]+'\n'
+		failed_content += '\n'
+	
+	p = "Modify the below code, such that the test cases which failed for the code also pass.\n\nCode:\n"+code_text+"\n\nFailed Test Cases:\n"+failed_content
+	print(p)
+	
+	generated_code = generate_code(p)
+	#print(prompt)
+	code_text = extract_code(generated_code,'output.cpp')
+	
+	passed_cases, failed_cases = check_test_cases(test_cases)
+	print("********")
