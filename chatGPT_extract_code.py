@@ -4,7 +4,7 @@ import os
 from codeforces_problem_statement_test_cases import get_problem_statement
 
 # Replace 'your_api_key' with your actual API key
-os.environ["OPENAI_API_KEY"] = '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'
+os.environ["OPENAI_API_KEY"] = 'enter API Key'
 
 # Set up the OpenAI API credentials
 openai.api_key = os.environ["OPENAI_API_KEY"]
